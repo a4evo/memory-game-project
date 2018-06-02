@@ -4,6 +4,8 @@
 
 * [Instructions](#instructions)
 * [Contributing](#contributing)
+* [To-do List](#ToDoList)
+* [Text link](#goto)
 
 ## Instructions
 
@@ -15,6 +17,25 @@ For specific, detailed instructions, look at the project instructions in the [Ud
 
 ## Contributing
 
-This repository is the starter code for _all_ Udacity students. Therefore, we most likely will not accept pull requests.
+This is my own Udacity project repository, so no pull request will be accepted. 
 
-For details, check out [CONTRIBUTING.md](CONTRIBUTING.md).
+Contributing text provided by Udacity:
+
+> This repository is the starter code for _all_ Udacity students. Therefore, we most likely will not accept pull requests.
+>
+> For details, check out [CONTRIBUTING.md](CONTRIBUTING.md).
+
+## ToDoList
+
+- [ ] Make start window and button
+- [ ] Shuffle cards opened
+- [ ] Hide cards
+- [ ] Open cards on click
+- [ ] Hide not matching
+- [ ] Leave matching opened 
+- [ ] Succeed check
+- [ ] Congratulation message
+- [ ] Replay button
+- [ ] Add timer
+- [ ] Add move counter
+- [ ] Add star rating based on moves
