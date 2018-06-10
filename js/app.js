@@ -2,70 +2,77 @@
  * Create a list that holds all of your cards
  */
 
-let cardsList = ["fa-diamond", 
-                 "fa-paper-plane-o", 
-                 "fa-anchor", 
-                 "fa-bolt", 
-                 "fa-cube", 
-                 "fa-leaf", 
-                 "fa-bicycle", 
-                 "fa-bomb", 
-                 "fa-diamond", 
-                 "fa-paper-plane-o", 
-                 "fa-anchor", 
-                 "fa-bolt", 
-                 "fa-cube", 
-                 "fa-leaf", 
-                 "fa-bicycle", 
+let cardsList = ["fa-diamond",
+                 "fa-paper-plane-o",
+                 "fa-anchor",
+                 "fa-bolt",
+                 "fa-cube",
+                 "fa-leaf",
+                 "fa-bicycle",
+                 "fa-bomb",
+                 "fa-diamond",
+                 "fa-paper-plane-o",
+                 "fa-anchor",
+                 "fa-bolt",
+                 "fa-cube",
+                 "fa-leaf",
+                 "fa-bicycle",
                  "fa-bomb"];
 
 //wait while document ready
- document.addEventListener("DOMContentLoaded", function(event) {
-    //console.log("DOM fully loaded and parsed");
+document.addEventListener("DOMContentLoaded", function (event) {
+  //console.log("DOM fully loaded and parsed");
+
+  /*event listener for start button*/
+  document.querySelector(".start-button").addEventListener("click", function () {
+    /*
+     * Display the cards on the page
+     *   - shuffle the list of cards using the provided "shuffle" method below
+     *   - loop through each card and create its HTML
+     *   - add each card's HTML to the page
+     */
+
+    const newDeck = createDeck();
     
-   /*event listener for start button*/
-   document.querySelector(".start-button").addEventListener("click", function() {
-   /*
-   * Display the cards on the page
-   *   - shuffle the list of cards using the provided "shuffle" method below
-   *   - loop through each card and create its HTML
-   *   - add each card's HTML to the page
-   */   
-     let shuffledCards = shuffle(cardsList);
-      
-     
-     const newDeck = document.createElement("ul");
-     newDeck.classList.add("deck");
-     //console.log(newDeck);
-     for (let card of shuffledCards) {
-       let newCard = `<li class="card"><i class="fa ${card}"></i></li>`;
-       newDeck.insertAdjacentHTML('beforeend', newCard);
-     }
-     
-     //hide cover window
-     document.querySelector(".popup").classList.add("hidden");
-     
-     //append deck
-     document.querySelector(".container").appendChild(newDeck);
-    });
-   
+    //hide cover window
+    document.querySelector(".popup").classList.add("hidden");
+
+    //append deck
+    document.querySelector(".container").appendChild(newDeck);
   });
 
+});
 
+//Function creating deck
+function createDeck() {
+  
+  let shuffledCards = shuffle(cardsList);
+
+  const newDeck = document.createElement("ul");
+  newDeck.classList.add("deck");
+  
+  for (let card of shuffledCards) {
+    let newCard = `<li class="card"><i class="fa ${card}"></i></li>`;
+    newDeck.insertAdjacentHTML('beforeend', newCard);
+  }
+  
+  return newDeck;
+}
 
 // Shuffle function from http://stackoverflow.com/a/2450976
 function shuffle(array) {
-    var currentIndex = array.length, temporaryValue, randomIndex;
+  var currentIndex = array.length,
+    temporaryValue, randomIndex;
 
-    while (currentIndex !== 0) {
-        randomIndex = Math.floor(Math.random() * currentIndex);
-        currentIndex -= 1;
-        temporaryValue = array[currentIndex];
-        array[currentIndex] = array[randomIndex];
-        array[randomIndex] = temporaryValue;
-    }
+  while (currentIndex !== 0) {
+    randomIndex = Math.floor(Math.random() * currentIndex);
+    currentIndex -= 1;
+    temporaryValue = array[currentIndex];
+    array[currentIndex] = array[randomIndex];
+    array[randomIndex] = temporaryValue;
+  }
 
-    return array;
+  return array;
 }
 
 
