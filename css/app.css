@@ -124,7 +124,7 @@ h1 {
 
 .start-button {
   margin: auto;
-  background-color: whitesmoke;
+  background-color: #fff;
   position: absolute;
   height: 80px;
   width: 150px;
@@ -134,7 +134,7 @@ h1 {
   right: 0;
   border: none;
   padding: 25px;
-  color: #cc7ecd;
+  color: #000;
   border-radius: 10px;
   font-weight: 400;
   font-size: 30px;
