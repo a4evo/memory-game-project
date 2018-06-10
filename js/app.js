@@ -18,6 +18,7 @@ let cardsList = ["fa-diamond",
                  "fa-leaf",
                  "fa-bicycle",
                  "fa-bomb"];
+let openedCards = 0;
 
 //wait while document ready
 document.addEventListener("DOMContentLoaded", function (event) {
@@ -35,13 +36,12 @@ document.addEventListener("DOMContentLoaded", function (event) {
      *   - add each card's HTML to the page
      */
 
-    const newDeck = createDeck();
+    createDeck();
     
     //hide cover window
     document.querySelector(".popup").classList.add("hidden");
 
-    //append deck
-    document.querySelector(".container").appendChild(newDeck);
+    
   });
   
   /*
@@ -56,13 +56,26 @@ document.addEventListener("DOMContentLoaded", function (event) {
     //if true
     if(seriously) {
       document.querySelector(".deck").remove();
-      const newDeck = createDeck();
-      document.querySelector(".container").appendChild(newDeck);
+      createDeck();
     }
     
     //TODO if false close popup
     
   });
+  
+  /*
+  * set up the event listener for a card. If a card is clicked:
+  *  - display the card's symbol (put this functionality in another function that you call from this one)
+  *  - add the card to a *list* of "open" cards (put this functionality in another function that you call from this one)
+  *  - if the list already has another card, check to see if the two cards match
+  *    + if the cards do match, lock the cards in the open position (put this functionality in another function that you call from this one)
+  *    + if the cards do not match, remove the cards from the list and hide the card's symbol (put this functionality in another function that you call from this one)
+  *    + increment the move counter and display it on the page (put this functionality in another function that you call from this one)
+  *    + if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
+  */
+  
+  
+  
 });
 
 //Function creating deck
@@ -78,7 +91,14 @@ function createDeck() {
     newDeck.insertAdjacentHTML('beforeend', newCard);
   }
   
-  return newDeck;
+  //append deck
+  document.querySelector(".container").appendChild(newDeck);
+  
+  document.querySelector(".deck").addEventListener("click", function(event) {
+    if (event.target.nodeName == 'LI') {
+        console.log(event.target);
+      }  
+  });
 }
 
 // Shuffle function from http://stackoverflow.com/a/2450976
@@ -96,15 +116,3 @@ function shuffle(array) {
 
   return array;
 }
-
-
-/*
- * set up the event listener for a card. If a card is clicked:
- *  - display the card's symbol (put this functionality in another function that you call from this one)
- *  - add the card to a *list* of "open" cards (put this functionality in another function that you call from this one)
- *  - if the list already has another card, check to see if the two cards match
- *    + if the cards do match, lock the cards in the open position (put this functionality in another function that you call from this one)
- *    + if the cards do not match, remove the cards from the list and hide the card's symbol (put this functionality in another function that you call from this one)
- *    + increment the move counter and display it on the page (put this functionality in another function that you call from this one)
- *    + if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
- */
