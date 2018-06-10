@@ -23,7 +23,10 @@ let cardsList = ["fa-diamond",
 document.addEventListener("DOMContentLoaded", function (event) {
   //console.log("DOM fully loaded and parsed");
 
-  /*event listener for start button*/
+  /*
+  * event listener for start button
+  */
+  
   document.querySelector(".start-button").addEventListener("click", function () {
     /*
      * Display the cards on the page
@@ -40,7 +43,26 @@ document.addEventListener("DOMContentLoaded", function (event) {
     //append deck
     document.querySelector(".container").appendChild(newDeck);
   });
-
+  
+  /*
+  *event listener for restart
+  */
+  
+  document.querySelector(".restart").addEventListener("click", function() {
+    
+    //TODO popup question if player sure
+    let seriously = true;
+    
+    //if true
+    if(seriously) {
+      document.querySelector(".deck").remove();
+      const newDeck = createDeck();
+      document.querySelector(".container").appendChild(newDeck);
+    }
+    
+    //TODO if false close popup
+    
+  });
 });
 
 //Function creating deck
