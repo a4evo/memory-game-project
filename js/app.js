@@ -18,7 +18,8 @@ let cardsList = ["fa-diamond",
                  "fa-leaf",
                  "fa-bicycle",
                  "fa-bomb"],
-  openedCards = 0;
+  openedCards = 0,
+  firstCardOpened = "";
 
 //wait while document ready
 document.addEventListener("DOMContentLoaded", function (event) {
@@ -95,10 +96,48 @@ function createDeck() {
   document.querySelector(".container").appendChild(newDeck);
 
   document.querySelector(".deck").addEventListener("click", function (event) {
-    if (event.target.nodeName == 'LI') {
-      console.log(event.target);
+    isOpened = event.target.classList.contains("open");
+    isMatched = event.target.classList.contains("match");
+
+    if (event.target.nodeName == 'LI' && !isOpened && !isMatched) {
+      console.log(openedCards);
+
+      if (openedCards === 0) {
+
+        firstCardOpened = event.target;
+        toggleClasses(event.target, ["open", "show"]);
+        openedCards++;
+
+      } else if (openedCards === 1) {
+
+        const secondCardOpened = event.target;
+        toggleClasses(secondCardOpened, ["open", "show"]);
+
+        if (firstCardOpened.firstElementChild.className == secondCardOpened.firstElementChild.className) {
+
+          toggleClasses(firstCardOpened, ["match", "open", "show"]);
+          toggleClasses(secondCardOpened, ["match", "open", "show"]);
+
+        } else {
+          //TODO react wrong while fast clicking
+          setTimeout(function () {
+            toggleClasses(firstCardOpened, ["open", "show"]);
+            toggleClasses(secondCardOpened, ["open", "show"]);
+          }, 800);
+        }
+
+        openedCards = 0;
+
+      }
     }
   });
+}
+
+//function toggling classes from array
+function toggleClasses(target, classes = []) {
+  for (let className of classes) {
+    target.classList.toggle(className);
+  }
 }
 
 // Shuffle function from http://stackoverflow.com/a/2450976
