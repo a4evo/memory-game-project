@@ -2,13 +2,56 @@
  * Create a list that holds all of your cards
  */
 
+let cardsList = ["fa-diamond", 
+                 "fa-paper-plane-o", 
+                 "fa-anchor", 
+                 "fa-bolt", 
+                 "fa-cube", 
+                 "fa-leaf", 
+                 "fa-bicycle", 
+                 "fa-bomb", 
+                 "fa-diamond", 
+                 "fa-paper-plane-o", 
+                 "fa-anchor", 
+                 "fa-bolt", 
+                 "fa-cube", 
+                 "fa-leaf", 
+                 "fa-bicycle", 
+                 "fa-bomb"];
 
-/*
- * Display the cards on the page
- *   - shuffle the list of cards using the provided "shuffle" method below
- *   - loop through each card and create its HTML
- *   - add each card's HTML to the page
- */
+//wait while document ready
+ document.addEventListener("DOMContentLoaded", function(event) {
+    //console.log("DOM fully loaded and parsed");
+    
+   /*event listener for start button*/
+   document.querySelector(".start-button").addEventListener("click", function() {
+   /*
+   * Display the cards on the page
+   *   - shuffle the list of cards using the provided "shuffle" method below
+   *   - loop through each card and create its HTML
+   *   - add each card's HTML to the page
+   */   
+     let shuffledCards = shuffle(cardsList);
+      
+     
+     const newDeck = document.createElement("ul");
+     newDeck.classList.add("deck");
+     //console.log(newDeck);
+     for (let card of shuffledCards) {
+       let newCard = `<li class="card"><i class="fa ${card}"></i></li>`;
+       newDeck.insertAdjacentHTML('beforeend', newCard);
+     }
+     
+     //hide cover window
+     document.querySelector(".popup").classList.add("hidden");
+     
+     //append deck
+     document.querySelector(".container").appendChild(newDeck);
+    });
+   
+  });
+
+
 
 // Shuffle function from http://stackoverflow.com/a/2450976
 function shuffle(array) {
