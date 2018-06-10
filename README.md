@@ -27,15 +27,15 @@ Contributing text provided by Udacity:
 
 ## ToDoList
 
-- [ ] Make start window and button
-- [ ] Shuffle cards opened
-- [ ] Hide cards
-- [ ] Open cards on click
-- [ ] Hide not matching
-- [ ] Leave matching opened 
+- [x] Make start window and button
+- [x] Shuffle cards opened
+- [x] Hide cards
+- [x] Open cards on click
+- [x] Hide not matching
+- [x] Leave matching opened 
 - [ ] Succeed check
 - [ ] Congratulation message
-- [ ] Replay button
+- [x] Replay button
 - [ ] Add timer
 - [ ] Add move counter
 - [ ] Add star rating based on moves
