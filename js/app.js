@@ -20,7 +20,8 @@ let cardsList = ["fa-diamond",
                  "fa-bomb"],
   openedCards = 0,
   firstCardOpened = "",
-  blockOpening = false;
+  blockOpening = false,
+  movesDone = 0;
 
 //wait while document ready
 document.addEventListener("DOMContentLoaded", function (event) {
@@ -95,14 +96,16 @@ function createDeck() {
 
   //append deck
   document.querySelector(".container").appendChild(newDeck);
-
+  
+  movesDone = 0;
+  
   document.querySelector(".deck").addEventListener("click", function (event) {
 
     isOpened = event.target.classList.contains("open");
     isMatched = event.target.classList.contains("match");
 
     if (event.target.nodeName == 'LI' && !isOpened && !isMatched && !blockOpening) {
-      console.log(openedCards);
+      //console.log(openedCards);
 
       if (openedCards === 0) {
 
@@ -111,6 +114,7 @@ function createDeck() {
         openedCards++;
 
       } else if (openedCards === 1) {
+        
         blockOpening = true;
         const secondCardOpened = event.target;
         toggleClasses(secondCardOpened, ["open", "show"]);
@@ -131,7 +135,10 @@ function createDeck() {
         }
 
         openedCards = 0;
-
+        
+        movesDone ++;
+        updateMovesNumber();
+        
       }
     }
   });
@@ -158,4 +165,8 @@ function shuffle(array) {
   }
 
   return array;
+}
+
+function updateMovesNumber() {
+    document.querySelector(".moves").textContent = movesDone;
 }
