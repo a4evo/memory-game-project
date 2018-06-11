@@ -19,7 +19,8 @@ let cardsList = ["fa-diamond",
                  "fa-bicycle",
                  "fa-bomb"],
   openedCards = 0,
-  firstCardOpened = "";
+  firstCardOpened = "",
+  blockOpening = false;
 
 //wait while document ready
 document.addEventListener("DOMContentLoaded", function (event) {
@@ -96,10 +97,11 @@ function createDeck() {
   document.querySelector(".container").appendChild(newDeck);
 
   document.querySelector(".deck").addEventListener("click", function (event) {
+
     isOpened = event.target.classList.contains("open");
     isMatched = event.target.classList.contains("match");
 
-    if (event.target.nodeName == 'LI' && !isOpened && !isMatched) {
+    if (event.target.nodeName == 'LI' && !isOpened && !isMatched && !blockOpening) {
       console.log(openedCards);
 
       if (openedCards === 0) {
@@ -109,7 +111,7 @@ function createDeck() {
         openedCards++;
 
       } else if (openedCards === 1) {
-
+        blockOpening = true;
         const secondCardOpened = event.target;
         toggleClasses(secondCardOpened, ["open", "show"]);
 
@@ -117,12 +119,14 @@ function createDeck() {
 
           toggleClasses(firstCardOpened, ["match", "open", "show"]);
           toggleClasses(secondCardOpened, ["match", "open", "show"]);
+          blockOpening = false;
 
         } else {
-          //TODO react wrong while fast clicking
+          
           setTimeout(function () {
             toggleClasses(firstCardOpened, ["open", "show"]);
             toggleClasses(secondCardOpened, ["open", "show"]);
+            blockOpening = false;
           }, 800);
         }
 
