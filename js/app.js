@@ -51,7 +51,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
    */
 
   document.querySelector(".restart").addEventListener("click", function () {
-
+    showPopup("Are you sure?", ["yes", "no"]);
     //TODO popup question if player sure
     let seriously = true;
 
@@ -75,8 +75,6 @@ document.addEventListener("DOMContentLoaded", function (event) {
    *    + increment the move counter and display it on the page (put this functionality in another function that you call from this one)
    *    + if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
    */
-
-
 
 });
 
@@ -102,7 +100,7 @@ function createDeck() {
     isMatched = event.target.classList.contains("match");
 
     if (event.target.nodeName == 'LI' && !isOpened && !isMatched && !blockOpening) {
-      console.log(openedCards);
+      //console.log(openedCards);
 
       if (openedCards === 0) {
 
@@ -158,4 +156,33 @@ function shuffle(array) {
   }
 
   return array;
+}
+
+
+//Create pop-up window with message and buttons
+
+function showPopup(message, buttons) {
+  
+  let newPopup = document.createElement("div");
+  newPopup.classList.add("popup-new");
+  
+  let innerContainer = document.createElement("div");
+  innerContainer.classList.add("popup-inner");
+  
+  let title = document.createElement("h1");
+  title.insertAdjacentHTML('afterbegin', message);
+  innerContainer.appendChild(title);
+  
+  for (const button of buttons) {
+    let newButton = document.createElement("button");
+    newButton.classList.add("btn");
+    newButton.insertAdjacentHTML("afterbegin", button );
+    innerContainer.appendChild(newButton);
+  }
+    
+  newPopup.appendChild(innerContainer);
+  
+  
+  document.querySelector("body").appendChild(newPopup);
+  
 }
