@@ -1,5 +1,5 @@
 /*
- * Create a list that holds all of your cards
+ * Create a list that holds all of your cards and other common variables
  */
 
 let cardsList = ["fa-diamond",
@@ -18,9 +18,10 @@ let cardsList = ["fa-diamond",
                  "fa-leaf",
                  "fa-bicycle",
                  "fa-bomb"],
-  openedCards = 0,
-  firstCardOpened = "",
-  blockOpening = false;
+openedCards = 0,
+firstCardOpened = "",
+blockOpening = false,
+restartBtnActive = false;
 
 //wait while document ready
 document.addEventListener("DOMContentLoaded", function (event) {
@@ -51,18 +52,11 @@ document.addEventListener("DOMContentLoaded", function (event) {
    */
 
   document.querySelector(".restart").addEventListener("click", function () {
-    showPopup("Are you sure?", ["yes", "no"]);
-    //TODO popup question if player sure
-    let seriously = true;
-
-    //if true
-    if (seriously) {
-      document.querySelector(".deck").remove();
-      createDeck();
+    
+    if (!restartBtnActive) {
+        return;
     }
-
-    //TODO if false close popup
-
+      showPopup("Are you sure?", ["yes", "no"], "restart");
   });
 
   /*
@@ -93,6 +87,8 @@ function createDeck() {
 
   //append deck
   document.querySelector(".container").appendChild(newDeck);
+  document.querySelector(".restart").classList.remove("unavailable");
+  restartBtnActive = true;
 
   document.querySelector(".deck").addEventListener("click", function (event) {
 
@@ -161,28 +157,49 @@ function shuffle(array) {
 
 //Create pop-up window with message and buttons
 
-function showPopup(message, buttons) {
+function showPopup(message, buttons, action) {
   
-  let newPopup = document.createElement("div");
-  newPopup.classList.add("popup-new");
+    let newPopup = document.createElement("div");
+    newPopup.classList.add("popup-new");
+
+    let innerContainer = document.createElement("div");
+    innerContainer.classList.add("popup-inner");
+
+    let title = document.createElement("h1");
+    title.insertAdjacentHTML('afterbegin', message);
+    innerContainer.appendChild(title);
+
+    for (const button of buttons) {
+        let newButton = document.createElement("button");
+        newButton.classList.add("btn");
+        newButton.insertAdjacentHTML("afterbegin", button );
+        innerContainer.appendChild(newButton);
+    }
+
+    newPopup.appendChild(innerContainer);
+
+
+    document.querySelector("body").appendChild(newPopup);
   
-  let innerContainer = document.createElement("div");
-  innerContainer.classList.add("popup-inner");
-  
-  let title = document.createElement("h1");
-  title.insertAdjacentHTML('afterbegin', message);
-  innerContainer.appendChild(title);
-  
-  for (const button of buttons) {
-    let newButton = document.createElement("button");
-    newButton.classList.add("btn");
-    newButton.insertAdjacentHTML("afterbegin", button );
-    innerContainer.appendChild(newButton);
-  }
+    //add event listeners for buttons
+    const btns = document.querySelectorAll(".btn");
+        
+    for(const btn of btns) {
+       addEventListenersToBtns(btn, action);        
+    }
+}
+
+function addEventListenersToBtns (btn, action) {
     
-  newPopup.appendChild(innerContainer);
-  
-  
-  document.querySelector("body").appendChild(newPopup);
-  
+    btn.addEventListener("click", function(event){
+        
+        const userAnswer = event.target.textContent;
+        console.log(userAnswer);
+        if (action === "restart" && userAnswer === "yes") {
+            document.querySelector('.deck').remove();
+            createDeck();
+        }
+        
+        document.querySelector(".popup-new").remove();        
+    });
 }

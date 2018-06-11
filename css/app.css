@@ -108,6 +108,10 @@ h1 {
     cursor: pointer;
 }
 
+.unavailable {
+    color: lightgray;
+}
+
 .hidden {
   display: none;
 }
