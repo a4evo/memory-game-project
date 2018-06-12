@@ -192,7 +192,7 @@ function showPopup(message, buttons, action) {
     
     if (action === "finish") {
         
-        let starsRating = document.querySelector(".stars");
+        const starsRating = document.querySelector(".stars").cloneNode(true);
         
         innerContainer.appendChild(starsRating);
     }
