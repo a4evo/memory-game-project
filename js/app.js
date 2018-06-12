@@ -91,6 +91,7 @@ function createDeck() {
     document.querySelector(".container").appendChild(newDeck);
 
     movesDone = 0;
+    updateMovesNumber();
 
     document.querySelector(".restart").classList.remove("unavailable");
     restartBtnActive = true;
@@ -127,7 +128,7 @@ function createDeck() {
                         toggleClasses(firstCardOpened, ["open", "show"]);
                         toggleClasses(secondCardOpened, ["open", "show"]);
                         blockOpening = false;
-                    }, 800);
+                    }, 500);
                 }
 
                 openedCards = 0;
@@ -165,6 +166,25 @@ function shuffle(array) {
 
 function updateMovesNumber() {
     document.querySelector(".moves").textContent = movesDone;
+    
+    const stars = document.querySelector(".stars").children;
+    
+    switch (movesDone) {        
+        case 0:
+            for (const star of stars) {
+                star.classList.remove("lost-star");
+            }            
+            break;
+        case 11: 
+            stars[2].classList.add("lost-star");
+            break;
+        case 21: 
+            stars[1].classList.add("lost-star");
+            break;
+        case 31: 
+            stars[0].classList.add("lost-star"); 
+            break;
+    }
 }
 
 //Create pop-up window with message and buttons

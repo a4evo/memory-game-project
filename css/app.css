@@ -108,7 +108,8 @@ h1 {
     cursor: pointer;
 }
 
-.unavailable {
+.unavailable,
+.lost-star{
     color: lightgray;
 }
 
