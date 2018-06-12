@@ -27,27 +27,8 @@ let cardsList = ["fa-diamond",
 
 //wait while document ready
 document.addEventListener("DOMContentLoaded", function (event) {
-    //console.log("DOM fully loaded and parsed");
 
-    /*
-     * event listener for start button
-     */
-
-    document.querySelector(".start-button").addEventListener("click", function () {
-        /*
-         * Display the cards on the page
-         *   - shuffle the list of cards using the provided "shuffle" method below
-         *   - loop through each card and create its HTML
-         *   - add each card's HTML to the page
-         */
-
-        createDeck();
-
-        //hide cover window
-        document.querySelector(".popup").classList.add("hidden");
-
-
-    });
+    showPopup("Welcome to Matching game", ["Start"], "start");
 
     /*
      *event listener for restart
@@ -166,23 +147,23 @@ function shuffle(array) {
 
 function updateMovesNumber() {
     document.querySelector(".moves").textContent = movesDone;
-    
+
     const stars = document.querySelector(".stars").children;
-    
-    switch (movesDone) {        
+
+    switch (movesDone) {
         case 0:
             for (const star of stars) {
                 star.classList.remove("lost-star");
-            }            
+            }
             break;
-        case 11: 
+        case 11:
             stars[2].classList.add("lost-star");
             break;
-        case 21: 
+        case 21:
             stars[1].classList.add("lost-star");
             break;
-        case 31: 
-            stars[0].classList.add("lost-star"); 
+        case 31:
+            stars[0].classList.add("lost-star");
             break;
     }
 }
@@ -228,6 +209,9 @@ function addEventListenersToBtns(btn, action) {
         const userAnswer = event.target.textContent;
         console.log(userAnswer);
         if (action === "restart" && userAnswer === "yes") {
+            document.querySelector('.deck').remove();
+            createDeck();
+        } else if (action === "start") {
             document.querySelector('.deck').remove();
             createDeck();
         }
