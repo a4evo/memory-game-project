@@ -181,7 +181,7 @@ function updateMovesNumber() {
 function showPopup(message, buttons, action) {
 
     let newPopup = document.createElement("div");
-    newPopup.classList.add("popup-new");
+    newPopup.classList.add("popup");
 
     let innerContainer = document.createElement("div");
     innerContainer.classList.add("popup-inner");
@@ -228,6 +228,6 @@ function addEventListenersToBtns(btn, action) {
             createDeck();
         } 
 
-        document.querySelector(".popup-new").remove();
+        document.querySelector(".popup").remove();
     });
 }
