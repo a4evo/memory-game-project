@@ -88,7 +88,7 @@ h1 {
 
 .score-panel {
     text-align: left;
-    width: 345px;
+    width: 600px;
     margin-bottom: 10px;
 }
 
@@ -97,6 +97,10 @@ h1 {
     padding: 0;
     display: inline-block;
     margin: 0 5px 0 0;
+}
+
+.score-panel .time {
+    margin: 0 0 0 150px;    
 }
 
 .stars li {
@@ -112,6 +116,10 @@ h1 {
 
 .popup-inner li {
     color: gold;
+}
+
+.popup-inner h1 {
+    margin-top: 0;
 }
 
 .popup-inner li.lost-star {

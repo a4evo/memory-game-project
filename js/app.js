@@ -24,7 +24,10 @@ let cardsList = ["fa-diamond",
     blockOpening = false,
     movesDone = 0,
     restartBtnActive = false,
-    leftUnmatched;
+    leftUnmatched,
+    timeLeft = {h: 0,
+               min: 0,
+               sec: 0};
 
 //wait while document ready
 document.addEventListener("DOMContentLoaded", function (event) {
@@ -80,154 +83,196 @@ function createDeck() {
 
     leftUnmatched = 8;
 
-    document.querySelector(".deck").addEventListener("click", function (event) {
+    document.querySelector(".deck").addEventListener("click", function(event) {
+        cardClick(event);
+    });
+    
+    timeLeft = {h: 0,
+               min: 0,
+               sec: 0};
+    setIntervalID = setInterval(function() {
+        timeLeft.sec ++;
+        updateTimer();
+    }, 1000);
+    
+    
+}
 
-        isOpened = event.target.classList.contains("open");
-        isMatched = event.target.classList.contains("match");
+function cardClick(event) {
+    isOpened = event.target.classList.contains("open");
+    isMatched = event.target.classList.contains("match");
 
-        if (event.target.nodeName == 'LI' && !isOpened && !isMatched && !blockOpening) {
-            //console.log(openedCards);
+    if (event.target.nodeName == 'LI' && !isOpened && !isMatched && !blockOpening) {
+        //console.log(openedCards);
 
-            if (openedCards === 0) {
+        if (openedCards === 0) {
 
-                firstCardOpened = event.target;
-                toggleClasses(event.target, ["open", "show"]);
-                openedCards++;
+            firstCardOpened = event.target;
+            toggleClasses(event.target, ["open", "show"]);
+            openedCards++;
 
-            } else if (openedCards === 1) {
+        } else if (openedCards === 1) {
 
-                blockOpening = true;
-                const secondCardOpened = event.target;
-                toggleClasses(secondCardOpened, ["open", "show"]);
+            blockOpening = true;
+            const secondCardOpened = event.target;
+            toggleClasses(secondCardOpened, ["open", "show"]);
 
-                if (firstCardOpened.firstElementChild.className == secondCardOpened.firstElementChild.className) {
+            if (firstCardOpened.firstElementChild.className == secondCardOpened.firstElementChild.className) {
 
-                    toggleClasses(firstCardOpened, ["match", "open", "show"]);
-                    toggleClasses(secondCardOpened, ["match", "open", "show"]);
-                    blockOpening = false;
-                    leftUnmatched--;
+                toggleClasses(firstCardOpened, ["match", "open", "show"]);
+                toggleClasses(secondCardOpened, ["match", "open", "show"]);
+                blockOpening = false;
+                leftUnmatched--;
 
-                    if (leftUnmatched === 0) {
-                        showPopup("Congratulations!", ["<i class=\"fa fa-repeat\"></i> Try again"], "finish");
-                    }
-
-                } else {
-
-                    setTimeout(function () {
-                        toggleClasses(firstCardOpened, ["open", "show"]);
-                        toggleClasses(secondCardOpened, ["open", "show"]);
-                        blockOpening = false;
-                    }, 500);
+                if (leftUnmatched === 0) {
+                    clearInterval(setIntervalID);
+                    showPopup("Congratulations!", ["<i class=\"fa fa-repeat\"></i> Try again"], "finish");
                 }
 
-                openedCards = 0;
+            } else {
 
-                movesDone++;
-                updateMovesNumber();
-
+                setTimeout(function () {
+                    toggleClasses(firstCardOpened, ["open", "show"]);
+                    toggleClasses(secondCardOpened, ["open", "show"]);
+                    blockOpening = false;
+                }, 500);
             }
+
+            openedCards = 0;
+
+            movesDone++;
+            updateMovesNumber();
+
         }
-    });
-}
-
-//function toggling classes from array
-function toggleClasses(target, classes = []) {
-    for (let className of classes) {
-        target.classList.toggle(className);
     }
 }
 
-// Shuffle function from http://stackoverflow.com/a/2450976
-function shuffle(array) {
-    var currentIndex = array.length,
-        temporaryValue, randomIndex;
-
-    while (currentIndex !== 0) {
-        randomIndex = Math.floor(Math.random() * currentIndex);
-        currentIndex -= 1;
-        temporaryValue = array[currentIndex];
-        array[currentIndex] = array[randomIndex];
-        array[randomIndex] = temporaryValue;
+    //function toggling classes from array
+    function toggleClasses(target, classes = []) {
+        for (let className of classes) {
+            target.classList.toggle(className);
+        }
     }
 
-    return array;
-}
+    // Shuffle function from http://stackoverflow.com/a/2450976
+    function shuffle(array) {
+        var currentIndex = array.length,
+            temporaryValue, randomIndex;
 
-function updateMovesNumber() {
-    document.querySelector(".moves").textContent = movesDone;
-
-    const stars = document.querySelector(".stars").children;
-
-    switch (movesDone) {
-        case 0:
-            for (const star of stars) {
-                star.classList.remove("lost-star");
-            }
-            break;
-        case 11:
-            stars[2].classList.add("lost-star");
-            break;
-        case 21:
-            stars[1].classList.add("lost-star");
-            break;
-        case 31:
-            stars[0].classList.add("lost-star");
-            break;
-    }
-}
-
-//Create pop-up window with message and buttons
-
-function showPopup(message, buttons, action) {
-
-    let newPopup = document.createElement("div");
-    newPopup.classList.add("popup");
-
-    let innerContainer = document.createElement("div");
-    innerContainer.classList.add("popup-inner");
-
-    let title = document.createElement("h1");
-    title.insertAdjacentHTML('afterbegin', message);
-    innerContainer.appendChild(title);
-
-    if (action === "finish") {
-
-        const starsRating = document.querySelector(".stars").cloneNode(true);
-
-        innerContainer.appendChild(starsRating);
-    }
-
-    for (const button of buttons) {
-        let newButton = document.createElement("button");
-        newButton.classList.add("btn");
-        newButton.insertAdjacentHTML("afterbegin", button);
-        innerContainer.appendChild(newButton);
-    }
-
-    newPopup.appendChild(innerContainer);
-
-
-    document.querySelector("body").appendChild(newPopup);
-
-    //add event listeners for buttons
-    const btns = document.querySelectorAll(".btn");
-
-    for (const btn of btns) {
-        addEventListenersToBtns(btn, action);
-    }
-}
-
-function addEventListenersToBtns(btn, action) {
-
-    btn.addEventListener("click", function (event) {
-
-        const userAnswer = event.target.textContent;
-        console.log(userAnswer);
-        if (userAnswer !== "no") {
-            document.querySelector('.deck').remove();
-            createDeck();
+        while (currentIndex !== 0) {
+            randomIndex = Math.floor(Math.random() * currentIndex);
+            currentIndex -= 1;
+            temporaryValue = array[currentIndex];
+            array[currentIndex] = array[randomIndex];
+            array[randomIndex] = temporaryValue;
         }
 
-        document.querySelector(".popup").remove();
-    });
+        return array;
+    }
+
+    function updateMovesNumber() {
+        document.querySelector(".moves").textContent = movesDone;
+
+        const stars = document.querySelector(".stars").children;
+
+        switch (movesDone) {
+            case 0:
+                for (const star of stars) {
+                    star.classList.remove("lost-star");
+                }
+                break;
+            case 11:
+                stars[2].classList.add("lost-star");
+                break;
+            case 21:
+                stars[1].classList.add("lost-star");
+                break;
+            case 31:
+                stars[0].classList.add("lost-star");
+                break;
+        }
+    }
+
+    //Create pop-up window with message and buttons
+
+    function showPopup(message, buttons, action) {
+
+        let newPopup = document.createElement("div");
+        newPopup.classList.add("popup");
+
+        let innerContainer = document.createElement("div");
+        innerContainer.classList.add("popup-inner");
+
+        let title = document.createElement("h1");
+        title.insertAdjacentHTML('afterbegin', message);
+        innerContainer.appendChild(title);
+
+        if (action === "finish") {
+
+            const starsRating = document.querySelector(".stars").cloneNode(true);
+            innerContainer.appendChild(starsRating);
+            
+            const timerDiv = document.createElement("div");
+            const timerSpan = document.querySelector(".timer").cloneNode(true);
+            timerSpan.insertAdjacentHTML('afterbegin', "<span>Your time: </span>");
+            timerDiv.appendChild(timerSpan);
+            innerContainer.appendChild(timerDiv);
+            
+        }
+
+        for (const button of buttons) {
+            let newButton = document.createElement("button");
+            newButton.classList.add("btn");
+            newButton.insertAdjacentHTML("afterbegin", button);
+            innerContainer.appendChild(newButton);
+        }
+
+        newPopup.appendChild(innerContainer);
+
+
+        document.querySelector("body").appendChild(newPopup);
+
+        //add event listeners for buttons
+        const btns = document.querySelectorAll(".btn");
+
+        for (const btn of btns) {
+            addEventListenersToBtns(btn, action);
+        }
+    }
+
+    function addEventListenersToBtns(btn, action) {
+
+        btn.addEventListener("click", function (event) {
+
+            const userAnswer = event.target.textContent;
+            console.log(userAnswer);
+            if (userAnswer !== "no") {
+                document.querySelector('.deck').remove();
+                createDeck();
+            }
+
+            document.querySelector(".popup").remove();
+        });
+    }
+
+function updateTimer() {
+   
+    if (timeLeft.sec == 60) {
+        timeLeft.sec = 0;
+        timeLeft.min ++;            
+    }
+    if (timeLeft.min == 60) {
+        timeLeft.min = 0;
+        timeLeft.h ++;
+    }
+    
+    const timer = document.querySelector(".timer");
+    
+    let {sec, min, h} = timeLeft;
+    
+    sec = (sec < 10) ? ("0" + sec) : (sec);
+    min = (min < 10) ? ("0" + min) : (min);
+    h  = (h < 10) ? ("0" + h) : (h);
+    
+    timer.textContent = `${h}:${min}:${sec}`;
 }
