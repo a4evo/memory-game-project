@@ -77,7 +77,7 @@ function createDeck() {
 
     document.querySelector(".restart").classList.remove("unavailable");
     restartBtnActive = true;
-    
+
     leftUnmatched = 8;
 
     document.querySelector(".deck").addEventListener("click", function (event) {
@@ -105,8 +105,8 @@ function createDeck() {
                     toggleClasses(firstCardOpened, ["match", "open", "show"]);
                     toggleClasses(secondCardOpened, ["match", "open", "show"]);
                     blockOpening = false;
-                    leftUnmatched --;
-                    
+                    leftUnmatched--;
+
                     if (leftUnmatched === 0) {
                         showPopup("Congratulations!", ["<i class=\"fa fa-repeat\"></i> Try again"], "finish");
                     }
@@ -189,11 +189,11 @@ function showPopup(message, buttons, action) {
     let title = document.createElement("h1");
     title.insertAdjacentHTML('afterbegin', message);
     innerContainer.appendChild(title);
-    
+
     if (action === "finish") {
-        
+
         const starsRating = document.querySelector(".stars").cloneNode(true);
-        
+
         innerContainer.appendChild(starsRating);
     }
 
@@ -226,7 +226,7 @@ function addEventListenersToBtns(btn, action) {
         if (userAnswer !== "no") {
             document.querySelector('.deck').remove();
             createDeck();
-        } 
+        }
 
         document.querySelector(".popup").remove();
     });
