@@ -2,24 +2,15 @@
  * Create a list that holds all of your cards and other common variables
  */
 
-const cardsList = ["fa-diamond",
+let cardsList = ["fa-diamond",
                  "fa-paper-plane-o",
                  "fa-anchor",
                  "fa-bolt",
                  "fa-cube",
                  "fa-leaf",
                  "fa-bicycle",
-                 "fa-bomb",
-                 "fa-diamond",
-                 "fa-paper-plane-o",
-                 "fa-anchor",
-                 "fa-bolt",
-                 "fa-cube",
-                 "fa-leaf",
-                 "fa-bicycle",
-                 "fa-bomb"];
-
-let openedCards = 0,
+                 "fa-bomb"],
+    openedCards = 0,
     firstCardOpened = "",
     blockOpening = false,
     movesDone = 0,
@@ -65,6 +56,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
 //Function creating deck
 function createDeck() {
 
+    cardsList = cardsList.concat(cardsList);
     const shuffledCards = shuffle(cardsList);
 
     const newDeck = document.createElement("ul");
