@@ -25,6 +25,7 @@ let openedCards = 0,
     movesDone = 0,
     restartBtnActive = false,
     leftUnmatched,
+    setIntervalID,
     timeLeft = {
         h: 0,
         min: 0,
@@ -246,7 +247,7 @@ function addEventListenersToBtns(btn, action) {
     btn.addEventListener("click", function (event) {
 
         const userAnswer = event.target.textContent;
-        
+
         if (userAnswer !== "no") {
             document.querySelector('.deck').remove();
             createDeck();
