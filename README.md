@@ -4,8 +4,8 @@
 
 * [Instructions](#instructions)
 * [Contributing](#contributing)
-* [To-do List](#ToDoList)
-* [Text link](#goto)
+* [To-do List](#dependencies)
+* [To-do List](#todolist)
 
 ## Instructions
 
@@ -25,6 +25,10 @@ Contributing text provided by Udacity:
 >
 > For details, check out [CONTRIBUTING.md](CONTRIBUTING.md).
 
+## Dependencies
+- [https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css]FontAwesome 
+- [https://fonts.googleapis.com/css?family=Coda]GoogleFonts - Coda 
+
 ## ToDoList
 
 - [x] Make start window and button
@@ -33,9 +37,9 @@ Contributing text provided by Udacity:
 - [x] Open cards on click
 - [x] Hide not matching
 - [x] Leave matching opened 
-- [ ] Succeed check
-- [ ] Congratulation message
+- [x] Succeed check
+- [x] Congratulation message
 - [x] Replay button
-- [ ] Add timer
-- [ ] Add move counter
-- [ ] Add star rating based on moves
+- [x] Add timer
+- [x] Add move counter
+- [x] Add star rating based on moves
