@@ -191,9 +191,6 @@ function updateMovesNumber() {
         case 21:
             stars[1].classList.add("lost-star");
             break;
-        case 31:
-            stars[0].classList.add("lost-star");
-            break;
     }
 }
 
