@@ -246,7 +246,7 @@ function addEventListenersToBtns(btn, action) {
     btn.addEventListener("click", function (event) {
 
         const userAnswer = event.target.textContent;
-        console.log(userAnswer);
+        
         if (userAnswer !== "no") {
             document.querySelector('.deck').remove();
             createDeck();
