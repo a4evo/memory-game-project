@@ -4,7 +4,7 @@
 
 * [Instructions](#instructions)
 * [Contributing](#contributing)
-* [To-do List](#dependencies)
+* [Dependancies](#dependencies)
 * [To-do List](#todolist)
 
 ## Instructions
@@ -26,8 +26,8 @@ Contributing text provided by Udacity:
 > For details, check out [CONTRIBUTING.md](CONTRIBUTING.md).
 
 ## Dependencies
-- [https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css]FontAwesome 
-- [https://fonts.googleapis.com/css?family=Coda]GoogleFonts - Coda 
+- [FontAwesome](https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css)
+- [GoogleFonts - Coda ](https://fonts.googleapis.com/css?family=Coda)
 
 ## ToDoList
 
